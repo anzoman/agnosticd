@@ -1,0 +1,19 @@
+name: Example CI/CD workflow for Steampunk Spotter
+on: [push]
+jobs:
+  run:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@master
+
+    - name: Scan Ansible content with different inputs
+      uses: xlab-steampunk/spotter-action@master
+      with:
+        paths: playbook.yaml
+        parse_values: true
+        display_level: error
+        ansible_version: 2.13
+      env:
+        SPOTTER_USERNAME: ${{ secrets.SPOTTER_TEST_USERNAME }}
+        SPOTTER_PASSWORD: ${{ secrets.SPOTTER_PASSWORD }}
